@@ -1,0 +1,13 @@
+E:\C#\CL\CL\bin\Debug\netcoreapp2.1\CL.deps.json
+E:\C#\CL\CL\bin\Debug\netcoreapp2.1\CL.runtimeconfig.json
+E:\C#\CL\CL\bin\Debug\netcoreapp2.1\CL.runtimeconfig.dev.json
+E:\C#\CL\CL\bin\Debug\netcoreapp2.1\CL.dll
+E:\C#\CL\CL\obj\Debug\netcoreapp2.1\CL.csprojAssemblyReference.cache
+E:\C#\CL\CL\obj\Debug\netcoreapp2.1\CL.csproj.CoreCompileInputs.cache
+E:\C#\CL\CL\obj\Debug\netcoreapp2.1\CL.AssemblyInfoInputs.cache
+E:\C#\CL\CL\obj\Debug\netcoreapp2.1\CL.AssemblyInfo.cs
+E:\C#\CL\CL\bin\Debug\netcoreapp2.1\CL.pdb
+E:\C#\CL\CL\obj\Debug\netcoreapp2.1\CL.dll
+E:\C#\CL\CL\obj\Debug\netcoreapp2.1\CL.pdb
+E:\C#\CL\CL\bin\Debug\netcoreapp2.1\config.json
+E:\C#\CL\CL\bin\Debug\netcoreapp2.1\log4net.config
