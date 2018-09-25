@@ -1,13 +1,10 @@
 ﻿using CL.Tool;
 using Console_DotNetCore_CaoLiu.Bll;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Net.Http;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading;
 using Tool;
 
@@ -113,7 +110,6 @@ namespace Console_DotNetCore_CaoLiu.Tool
             }
         }
 
-
         /// <summary>
         /// 请求网站内容
         /// </summary>
@@ -161,6 +157,36 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 }
             }
             return result;
+        }
+
+        public static int getTotalPage(int typeid)
+        {
+            string url = Config.Url + "/thread0806.php?fid=" + Config.TypeId + "&search=&page=1";
+            string htmlstr = Http.Postget_String(url);
+            if (htmlstr == null) return 0;
+            htmlstr = htmlstr.Replace("\r\n\r\n\t\t↑1\r\n\r\n\t\r\n\r\n\t", "");
+            htmlstr = htmlstr.Replace("\r\n\r\n\t\t↑2\r\n\r\n\t\r\n\r\n\t", "");
+            htmlstr = htmlstr.Replace("\r\n\r\n\t\t↑3\r\n\r\n\t\r\n\r\n\t", "");
+            htmlstr = htmlstr.Replace("\r\n\t\r\n\t", "");
+            htmlstr = htmlstr.Replace("\r\n\t", "");
+            htmlstr = htmlstr.Replace("\r\n\r\n\t", "");
+            htmlstr = htmlstr.Replace("[ <span", "<span");
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(htmlstr);
+            HtmlNode view = doc.GetElementbyId("main");
+            if (view == null)
+            {
+                Console.WriteLine("AnalysisPage() html 没找到 id=main:" + url);
+                return 0;
+            }
+            HtmlNode c_main = view.SelectSingleNode("//a[@class='w70']/input");
+            if (c_main == null)
+            {
+                Console.WriteLine("AnalysisPage() html 没找到 a[@class='w70':" + url);
+                return 0;
+            }
+            var min_max = c_main.Attributes["value"].Value.Split('/');
+            return int.Parse(min_max[1]);
         }
 
     }
