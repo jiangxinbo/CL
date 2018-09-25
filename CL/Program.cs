@@ -21,8 +21,13 @@ namespace CL
         static void Main(string[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            Config.TypeId = 25;
             Config.Task_count = 20;
             Config.WebSleep = 100;
+
+            Config.Start_numb = 1;
+            Config.End_numb = 500;
 
             
             for (int pageint = Config.Start_numb; pageint <= Config.End_numb; pageint++)

@@ -123,9 +123,9 @@ namespace Console_DotNetCore_CaoLiu.Tool
         public static string Postget_String(string url,int postgetcount=1)
         {
             string result = null;
+            bool isMainUrl = url.IndexOf(Config.Url) == -1 ? false : true;
             try
             {
-                bool isMainUrl = url.IndexOf(Config.Url) == -1 ? false : true;
                 if (isMainUrl)
                 {
                     Config.WebTimeSpan.Wait();
@@ -142,17 +142,20 @@ namespace Console_DotNetCore_CaoLiu.Tool
             }
             catch (Exception e)
             {
+                if (isMainUrl)
+                {
+                    Thread.Sleep(Config.WebSleep);
+                    Config.WebTimeSpan.Release();
+                }
                 postgetcount++;
                 if (postgetcount <= 5)
                 {
                     Console.WriteLine(" 请求次数:" + postgetcount + "   " + url + "   " + e.Message);
                     L.File.Error(" 请求次数:" + postgetcount + "   " + url + "   " + e.Message, e);
-                    Thread.Sleep(1000 * 1);
                     return Postget_String(url,++postgetcount);
                 }
                 else
                 {
-                    Config.WebTimeSpan.Release();
                     Console.WriteLine("Postget http请求 超过5次" + url + e.Message);
                     L.File.Error("Postget http请求 超过5次" + url, e);
                 }
