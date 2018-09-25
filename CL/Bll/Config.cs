@@ -21,7 +21,7 @@ namespace Console_DotNetCore_CaoLiu.Bll
 
         static Config()
         {
-            Url = "https://cl.u5k0.icu";
+            Url = "https://cl.k6j9.icu";
             TypeId = 2;
             Task_count = 1;
             Start_numb = 1;

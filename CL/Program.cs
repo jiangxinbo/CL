@@ -35,7 +35,9 @@ namespace CL
 
             setOption();
 
+
             Console.WriteLine("正在初始化...");
+            Http.init();
 
             for (int pageint = Config.Start_numb; pageint <= Config.End_numb; pageint++)
             {
@@ -76,6 +78,7 @@ namespace CL
                 Config.Url = urlindex;
             }
             Console.WriteLine("{0}同学,{1}好：  现在时间：{2}", "**", timestr, DateTime.Now);
+            
             Console.WriteLine("2=无码  15=有码  4=欧美  5=动漫  25=国产 26=中文  27=交流 请输入您喜的数字,按[ 回车 ]键 确定");
             var typeid = Console.ReadLine();
             Config.TypeId = int.Parse(typeid);
@@ -95,8 +98,8 @@ namespace CL
             Console.WriteLine("请输入图片生成地址 (想要图片放到哪个文件夹，就把那个文件夹拖到这句话上面) 按[ 回车 ]键 确定");
             var filepath = Console.ReadLine();
             Config.Img_path = filepath;
-            
-            
+
+
 
 
         }

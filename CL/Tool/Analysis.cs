@@ -198,7 +198,7 @@ namespace CL.Tool
                         //Console.WriteLine(" 此图片是广告 已跳过 ");
                         continue;
                     }
-                    //Console.WriteLine(pw.Openurl);
+                    Console.WriteLine("图片请求 {0} ，{1}",imgurl,DateTime.Now);
                     var ms = Http.GetFile(imgurl);
                     if (ms == null)
                     {

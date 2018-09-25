@@ -17,6 +17,14 @@ namespace Console_DotNetCore_CaoLiu.Tool
 
         static Http()
         {
+            newclient();
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public static void init()
+        {
             if (!Directory.Exists(Path.GetDirectoryName(Config.GetGuangGao(""))))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Config.GetGuangGao("")));
@@ -25,6 +33,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Config.GetMakeImgPath(0, Config.TypeId, "")));
             }
+            var s = Path.GetDirectoryName(Config.GetMakeTorrentPath(0, Config.TypeId, ""));
             if (!Directory.Exists(Path.GetDirectoryName(Config.GetMakeTorrentPath(0, Config.TypeId, ""))))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Config.GetMakeTorrentPath(0, Config.TypeId, "")));
@@ -34,8 +43,16 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 Analysis.guanggaoList.Add(Path.GetFileName(file));
             }
 
-            if (Config.Start_numb > 99 || Config.End_numb>99)  login();
+            if (Config.Start_numb > 99 || Config.End_numb > 99) login();
             else
+            {
+                newclient();
+            }
+        }
+
+        private static void newclient()
+        {
+            if (client == null)
             {
                 client = new HttpClient();
                 client.Timeout = new TimeSpan(0, 0, 10);
@@ -124,7 +141,9 @@ namespace Console_DotNetCore_CaoLiu.Tool
             {
                 if (isMainUrl)
                 {
+                    Console.WriteLine("-after当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                     Config.WebTimeSpan.Wait();
+                    Console.WriteLine("-当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                 }
                 var response = client.GetAsync(url).Result;
                 response.Content.Headers.ContentType.CharSet = "gb2312";
@@ -132,16 +151,21 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 postgetcount = 0;
                 if(isMainUrl)
                 {
-                    Thread.Sleep(Config.WebSleep);
+                   
+                    Console.WriteLine("+after当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                     Config.WebTimeSpan.Release();
+                    Console.WriteLine("+after当前信号量{0}", Config.WebTimeSpan.CurrentCount);
+                    Thread.Sleep(Config.WebSleep + 1000);
                 }
             }
             catch (Exception e)
             {
                 if (isMainUrl)
                 {
-                    Thread.Sleep(Config.WebSleep);
+                    Console.WriteLine("+after当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                     Config.WebTimeSpan.Release();
+                    Console.WriteLine("+当前信号量{0}", Config.WebTimeSpan.CurrentCount);
+                    Thread.Sleep(Config.WebSleep);
                 }
                 postgetcount++;
                 if (postgetcount <= 5)

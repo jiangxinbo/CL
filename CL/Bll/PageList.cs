@@ -115,10 +115,10 @@ namespace CL.Bll
                             Config.TaskRun.Release();
                            Console.WriteLine("正在运行任务数量:当前信号量   {0}:{1}    -- {2}", Interlocked.Decrement(ref PageList.tongji),Config.TaskRun.CurrentCount, DateTime.Now);
                         },new PagePostParam() { Title = title, PostUrl = titleUrl, PageCount = currentPage, PostIndex=currentPost });
-                        
                     }
                     catch (Exception ex)
                     {
+                        Config.TaskRun.Release();
                         Console.WriteLine(ex.Message);
                         L.File.Error("titleUrl", ex);
                         continue;
