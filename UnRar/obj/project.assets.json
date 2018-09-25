@@ -681,23 +681,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jmy\\.nuget\\packages\\": {},
+    "C:\\Users\\007\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\C#\\CL\\UnRar\\UnRar.csproj",
+      "projectUniqueName": "E:\\C#Project\\CL\\UnRar\\UnRar.csproj",
       "projectName": "UnRar",
-      "projectPath": "E:\\C#\\CL\\UnRar\\UnRar.csproj",
-      "packagesPath": "C:\\Users\\jmy\\.nuget\\packages\\",
-      "outputPath": "E:\\C#\\CL\\UnRar\\obj\\",
+      "projectPath": "E:\\C#Project\\CL\\UnRar\\UnRar.csproj",
+      "packagesPath": "C:\\Users\\007\\.nuget\\packages\\",
+      "outputPath": "E:\\C#Project\\CL\\UnRar\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\jmy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\007\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -705,7 +705,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://www.myget.org/F/imagesharp": {}
       },
       "frameworks": {
         "netcoreapp2.1": {

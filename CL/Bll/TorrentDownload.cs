@@ -16,10 +16,7 @@ namespace Console_DotNetCore_CaoLiu.Bll
     {
 
         private CookieContainer cc = new CookieContainer();
-        /// <summary>
-        /// 记录数量
-        /// </summary>
-        int recordCount = 0;
+
         private string userAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
         int taskid = 0;
 
@@ -28,11 +25,11 @@ namespace Console_DotNetCore_CaoLiu.Bll
             taskid = i;
         }
 
-        private void printRecordCount(int id)
-        {
-            int rc = Interlocked.Increment(ref recordCount);
-            Console.WriteLine("线程:{0}  已处理:{1}   真实id:{2}", taskid.ToString().PadRight(9), rc.ToString().PadRight(9), id.ToString().PadRight(9));
-        }
+        //private void printRecordCount(int id)
+        //{
+        //    int rc = Interlocked.Increment(ref recordCount);
+        //    Console.WriteLine("线程:{0}  已处理:{1}   真实id:{2}", taskid.ToString().PadRight(9), rc.ToString().PadRight(9), id.ToString().PadRight(9));
+        //}
 
         private void init(int i)
         {
@@ -192,8 +189,8 @@ namespace Console_DotNetCore_CaoLiu.Bll
             //请求url以获取数据
             try
             {
-                Console.WriteLine();
-                Console.WriteLine("请求种子   " + url);
+                //Console.WriteLine();
+                //Console.WriteLine("请求种子   " + url);
                 //设置最大连接数
                 ServicePointManager.DefaultConnectionLimit = 5000;
                 //如果是发送HTTPS请求  

@@ -140,7 +140,7 @@ namespace Console_DotNetCore_CaoLiu.Bll
             f.Write(rarbyte, 0, rarbyte.Length);
             f.Flush();
             zos.Close();
-            Console.Write(" imgRar_完成 ");
+            //Console.Write(" imgRar_完成 ");
 
         }
 

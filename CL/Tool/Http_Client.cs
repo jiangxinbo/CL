@@ -108,10 +108,10 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 case 403:return stream;
                 default:break;
             }
-            Console.WriteLine("                                               {0}",status_code);
+            //Console.WriteLine("                                               {0}",status_code);
             if(status_code>=500)
             {
-                Console.WriteLine("                                  服务器返回状态码：{0}   ---  服务器报错！！！", status_code);
+                Console.WriteLine("                服务器返回状态码：{0}  ---  {1}", status_code,url);
                 return stream;
             }
 

@@ -1,4 +1,5 @@
-﻿using Console_DotNetCore_CaoLiu.Bll;
+﻿using CL.Bll;
+using Console_DotNetCore_CaoLiu.Bll;
 using Console_DotNetCore_CaoLiu.Model;
 using Console_DotNetCore_CaoLiu.Tool;
 using ICSharpCode.SharpZipLib.Zip;
@@ -20,32 +21,14 @@ namespace CL
         static void Main(string[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            //var url = "http://fenix.imgbabes.com/i/00741/okyqv0u8xeup_t.jpg";
-            //var client = new Http_Client();
-            //var stream = client.get(url);
-            //Image img = Image.FromStream(stream);
-            //img.Save("e:/a_a.jpg");
+            Config.Task_count = 20;
+            Config.WebSleep = 100;
 
-            //WebClient wc = new WebClient();
-            //var item= wc.DownloadData(url);
-            //setOption();
-
-            int start = 0, end = 0;
-            start = Config.Start_numb > Config.End_numb ? Config.End_numb : Config.Start_numb;
-            end = Config.Start_numb > Config.End_numb ? Config.Start_numb : Config.End_numb;
-            var grouplist = MyGroup.GetCroup(start, end, Config.Task_count);
-            int currentTaskId = 0;
-            List<Task> taskList = new List<Task>();
-            foreach(var group in grouplist)
+            
+            for (int pageint = Config.Start_numb; pageint <= Config.End_numb; pageint++)
             {
-                currentTaskId++;
-                var task=Task.Factory.StartNew((taskid)=>{
-                    HtmlHelp_mongo hh = new HtmlHelp_mongo();
-                    hh.Init(group.Start, group.End, (int)taskid);
-                }, currentTaskId);
-                taskList.Add(task);
+                new PageList().AnalysisPage(pageint);
             }
-            Task.WaitAll(taskList.ToArray());
             Console.WriteLine();
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine();

@@ -6231,7 +6231,7 @@
       ]
     },
     "System.Xml.XPath/4.3.0": {
-      "sha512": "v1JQ5SETnQusqmS3RwStF7vwQ3L02imIzl++sewmt23VGygix04pEH+FCj1yWb+z4GDzKiljr1W7Wfvrx0YwgA==",
+      "sha512": "6DNU+0YJOLl17zy/z4Xf568p8ILLhqpYm+4wkSy4M71SJaRigY5X++JfGK1AUDrbD+2hKUSAuEXNfF5ZIHVQlA==",
       "type": "package",
       "path": "system.xml.xpath/4.3.0",
       "files": [
@@ -6318,23 +6318,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jmy\\.nuget\\packages\\": {},
+    "C:\\Users\\007\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\C#\\CL\\CL\\CL.csproj",
+      "projectUniqueName": "E:\\C#Project\\CL\\CL\\CL.csproj",
       "projectName": "CL",
-      "projectPath": "E:\\C#\\CL\\CL\\CL.csproj",
-      "packagesPath": "C:\\Users\\jmy\\.nuget\\packages\\",
-      "outputPath": "E:\\C#\\CL\\CL\\obj\\",
+      "projectPath": "E:\\C#Project\\CL\\CL\\CL.csproj",
+      "packagesPath": "C:\\Users\\007\\.nuget\\packages\\",
+      "outputPath": "E:\\C#Project\\CL\\CL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\jmy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\007\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6342,7 +6342,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://www.myget.org/F/imagesharp": {}
       },
       "frameworks": {
         "netcoreapp2.1": {
