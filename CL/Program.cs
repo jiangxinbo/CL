@@ -24,7 +24,7 @@ namespace CL
 
             //Config.TypeId = 2;
             //Config.Task_count = 20;
-            Config.WebSleep = 100;
+            Config.WebSleep = 500;
 
             //Config.Start_numb = 1;
             //Config.End_numb = 500;

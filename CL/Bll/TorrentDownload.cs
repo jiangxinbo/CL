@@ -25,11 +25,7 @@ namespace Console_DotNetCore_CaoLiu.Bll
             taskid = i;
         }
 
-        //private void printRecordCount(int id)
-        //{
-        //    int rc = Interlocked.Increment(ref recordCount);
-        //    Console.WriteLine("线程:{0}  已处理:{1}   真实id:{2}", taskid.ToString().PadRight(9), rc.ToString().PadRight(9), id.ToString().PadRight(9));
-        //}
+       
 
         private void init(int i)
         {

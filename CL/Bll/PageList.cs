@@ -103,26 +103,26 @@ namespace CL.Bll
                     {
                         continue;
                     }
-
-                    try
-                    {
-                        Config.TaskRun.Wait();
-                        Interlocked.Increment(ref tongji);
-                        Console.WriteLine("正在运行任务数量:当前信号量   {0}:{1}    -- {2}", tongji, Config.TaskRun.CurrentCount,DateTime.Now);
-                        Console.WriteLine("  正在处理第{0}页数据中的第{1}个帖子", currentPage, currentPost);
-                        Task.Factory.StartNew((param) => {
+                    Config.TaskRun.Wait();
+                    Interlocked.Increment(ref tongji);
+                    
+                    Console.WriteLine("  正在处理第{0}页数据中的第{1}个帖子", currentPage, currentPost);
+                    Task.Factory.StartNew((param) => {
+                        try
+                        {
+                            Console.WriteLine(Thread.CurrentThread.ManagedThreadId+ "  -正在运行任务数量:当前信号量   {0}:{1}    -- {2}", tongji, Config.TaskRun.CurrentCount, DateTime.Now);
                             new PagePost().savePage(param as PagePostParam);
                             Config.TaskRun.Release();
-                           Console.WriteLine("正在运行任务数量:当前信号量   {0}:{1}    -- {2}", Interlocked.Decrement(ref PageList.tongji),Config.TaskRun.CurrentCount, DateTime.Now);
-                        },new PagePostParam() { Title = title, PostUrl = titleUrl, PageCount = currentPage, PostIndex=currentPost });
-                    }
-                    catch (Exception ex)
-                    {
-                        Config.TaskRun.Release();
-                        Console.WriteLine(ex.Message);
-                        L.File.Error("titleUrl", ex);
-                        continue;
-                    }
+                            Console.WriteLine(Thread.CurrentThread.ManagedThreadId+ "  +正在运行任务数量:当前信号量   {0}:{1}    -- {2}", Interlocked.Decrement(ref tongji), Config.TaskRun.CurrentCount, DateTime.Now);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(Thread.CurrentThread.ManagedThreadId + "  +正在运行任务数量:当前信号量   {0}:{1}    -- {2}", Interlocked.Decrement(ref tongji), Config.TaskRun.CurrentCount, DateTime.Now);
+                            Config.TaskRun.Release();
+                            Console.WriteLine("titleUrl " + titleUrl + ex.Message);
+                            L.File.Error("titleUrl " + titleUrl, ex);
+                        }
+                    }, new PagePostParam() { Title = title, PostUrl = titleUrl, PageCount = currentPage, PostIndex = currentPost });
                 }
                 else
                 {

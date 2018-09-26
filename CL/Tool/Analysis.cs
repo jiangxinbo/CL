@@ -198,7 +198,7 @@ namespace CL.Tool
                         //Console.WriteLine(" 此图片是广告 已跳过 ");
                         continue;
                     }
-                    Console.WriteLine("图片请求 {0} ，{1}",imgurl,DateTime.Now);
+                    //Console.WriteLine("图片请求 {0} ，{1}",imgurl,DateTime.Now);
                     var ms = Http.GetFile(imgurl);
                     if (ms == null)
                     {
@@ -233,7 +233,17 @@ namespace CL.Tool
             }
             if (streamsList.Count > 0)
             {
-                var result = ImageMerge.Merge(streamsList, 0);
+                MemoryStream result = null;
+                try
+                {
+                    result = ImageMerge.Merge(streamsList, 0);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("合并图片错误：" + pw.Openurl);
+                    L.File.Error("合并图片错误："+pw.Openurl, ex);
+                }
+                
                 //Console.WriteLine("{0} - 图片合成 完毕", DateTime.Now);
                 return result;
             }

@@ -78,7 +78,22 @@ namespace Tool
             var myEncoderParameter = new EncoderParameter(myEncoder, 100L);
             myEncoderParameters.Param[0] = myEncoderParameter;
             MemoryStream stream = new MemoryStream();
-            b.Save(stream, myImageCodecInfo, myEncoderParameters);
+            try
+            {
+                b.Save(stream, myImageCodecInfo, myEncoderParameters);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("合并图片错误"+ex.Message);
+                b.Dispose();
+                g.Dispose();
+                throw;
+            }
+            finally
+            {
+                b.Dispose();
+                g.Dispose();
+            }
             b.Dispose();
             g.Dispose();
             return stream;

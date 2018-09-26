@@ -141,9 +141,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
             {
                 if (isMainUrl)
                 {
-                    Console.WriteLine("-after当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                     Config.WebTimeSpan.Wait();
-                    Console.WriteLine("-当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                 }
                 var response = client.GetAsync(url).Result;
                 response.Content.Headers.ContentType.CharSet = "gb2312";
@@ -151,10 +149,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 postgetcount = 0;
                 if(isMainUrl)
                 {
-                   
-                    Console.WriteLine("+after当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                     Config.WebTimeSpan.Release();
-                    Console.WriteLine("+after当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                     Thread.Sleep(Config.WebSleep + 1000);
                 }
             }
@@ -162,9 +157,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
             {
                 if (isMainUrl)
                 {
-                    Console.WriteLine("+after当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                     Config.WebTimeSpan.Release();
-                    Console.WriteLine("+当前信号量{0}", Config.WebTimeSpan.CurrentCount);
                     Thread.Sleep(Config.WebSleep);
                 }
                 postgetcount++;
