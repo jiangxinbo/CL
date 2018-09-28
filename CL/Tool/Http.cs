@@ -69,10 +69,10 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 //Console.WriteLine();
                 //Console.WriteLine(url);
                 //Console.WriteLine();
-                //Console.WriteLine("                                         开始请求文件    " + DateTime.Now);
+                Console.WriteLine("                                         开始请求文件    " + DateTime.Now);
                 var data = new Http_Client().get(url);
                 //Console.WriteLine();
-                //Console.WriteLine("                                         文件请求结束   " + DateTime.Now);
+                Console.WriteLine("                                         文件请求结束   " + DateTime.Now);
                 //Console.WriteLine();
                 return data;
             }
@@ -142,6 +142,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 if (isMainUrl)
                 {
                     Config.WebTimeSpan.Wait();
+                    Console.WriteLine(DateTime.Now+"               进入封印：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
                 }
                 var response = client.GetAsync(url).Result;
                 response.Content.Headers.ContentType.CharSet = "gb2312";
@@ -149,16 +150,17 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 postgetcount = 0;
                 if(isMainUrl)
                 {
+                    Thread.Sleep(Config.WebSleep+new Random().Next(0,100));
                     Config.WebTimeSpan.Release();
-                    Thread.Sleep(Config.WebSleep + 1000);
+                    Console.WriteLine(DateTime.Now + "                封印解除：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
                 }
             }
             catch (Exception e)
             {
                 if (isMainUrl)
                 {
+                    Thread.Sleep(Config.WebSleep+ new Random().Next(0, 100));
                     Config.WebTimeSpan.Release();
-                    Thread.Sleep(Config.WebSleep);
                 }
                 postgetcount++;
                 if (postgetcount <= 5)
