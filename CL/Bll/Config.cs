@@ -28,6 +28,8 @@ namespace Console_DotNetCore_CaoLiu.Bll
             End_numb = 99;
             Img_path = "cl";
             WebSleep = 500;
+            Pwd = "eeak47";
+            Uname = "jiangxinbo";
         }
 
         public static string ProcessDirectory

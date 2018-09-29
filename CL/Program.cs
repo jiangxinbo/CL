@@ -24,7 +24,7 @@ namespace CL
 
             //Config.TypeId = 2;
             //Config.Task_count = 20;
-            Config.WebSleep = 500;
+            Config.WebSleep = 1500;
 
             //Config.Start_numb = 1;
             //Config.End_numb = 500;
@@ -38,7 +38,7 @@ namespace CL
 
             Console.WriteLine("正在初始化...");
             Http.init();
-
+            Thread.Sleep(2000);
             for (int pageint = Config.Start_numb; pageint <= Config.End_numb; pageint++)
             {
                 new PageList().AnalysisPage(pageint);

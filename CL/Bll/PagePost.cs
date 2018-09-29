@@ -37,7 +37,7 @@ namespace CL.Bll
             var imgpath = Config.GetMakeImgPath(pw.Size, pw.Typeid, pw.Title);
             if (File.Exists(imgpath)) return;
             var torrent = Config.GetMakeTorrentPath(pw.Size, pw.Typeid, pw.Title);
-            if (File.Exists(torrent)) return;
+            //if (File.Exists(torrent)) return;
             pw.Filepath = imgpath;
             string openurl = null;
             string web = null;
@@ -78,7 +78,7 @@ namespace CL.Bll
                 //如果没有文件
                 else
                 {
-                    L.File.Warn(string.Format("帖子有图片，【但帖子没有种子】 url:{0}", pw.Openurl));
+                    L.File.Debug(string.Format("帖子有图片，【但帖子没有种子】 url:{0}", pw.Openurl));
                     Console.WriteLine("种子读取  失败");
                     imgStream.Close();
                     File.Copy("default.jpg", imgpath);
@@ -108,7 +108,7 @@ namespace CL.Bll
                 //如果没有文件
                 else
                 {
-                    L.File.Warn(string.Format("帖子既没有种子，又没有图片】 url:{0}", pw.Openurl));
+                    L.File.Debug(string.Format("帖子既没有种子，又没有图片】 url:{0}", pw.Openurl));
                 }
                 File.Copy("default.jpg", imgpath);
                 Console.WriteLine("帖子中没有图片,种子下载完成 {0}", pw.Openurl);
