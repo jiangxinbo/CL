@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CL", "CL\CL.csproj", "{7FA7D761-5EEF-4C10-94B4-E15C8D3488D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CL", "CL\CL.csproj", "{7FA7D761-5EEF-4C10-94B4-E15C8D3488D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnRar", "UnRar\UnRar.csproj", "{E4791E32-0497-47F0-83C6-B4BB31B705F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnRar", "UnRar\UnRar.csproj", "{E4791E32-0497-47F0-83C6-B4BB31B705F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuangGao", "GuangGao\GuangGao.csproj", "{2FB09C0D-470F-47E5-8820-9D25464F5E22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E4791E32-0497-47F0-83C6-B4BB31B705F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4791E32-0497-47F0-83C6-B4BB31B705F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4791E32-0497-47F0-83C6-B4BB31B705F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FB09C0D-470F-47E5-8820-9D25464F5E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FB09C0D-470F-47E5-8820-9D25464F5E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FB09C0D-470F-47E5-8820-9D25464F5E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FB09C0D-470F-47E5-8820-9D25464F5E22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

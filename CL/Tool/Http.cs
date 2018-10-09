@@ -142,40 +142,31 @@ namespace Console_DotNetCore_CaoLiu.Tool
         public static string Postget_String(string url,int postgetcount=1)
         {
             string result = null;
-            bool isMainUrl = url.IndexOf(Config.Url) == -1 ? false : true;
             try
             {
-                if (isMainUrl)
-                {
-                    Config.WebTimeSpan.Wait();
-                    Console.WriteLine(DateTime.Now+"               进入封印：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
-                    L.File.WarnFormat("正在请求地址:{0},请求时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                }
+
+                Config.WebTimeSpan.Wait();
+                Console.WriteLine(DateTime.Now+"               进入封印：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
+                L.File.WarnFormat("正在请求地址:{0},请求时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
                 var response = client.GetAsync(url).Result;
                 response.Content.Headers.ContentType.CharSet = "gb2312";
                 result = response.Content.ReadAsStringAsync().Result;
-                if(isMainUrl)
-                {
-                    Thread.Sleep(Config.WebSleep+new Random().Next(0,200));
-                    Config.WebTimeSpan.Release();
-                    Console.WriteLine(DateTime.Now + "                封印解除：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
-                    L.File.WarnFormat("请求结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                }
+                Console.WriteLine(DateTime.Now + "                封印解除：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
+                //L.File.WarnFormat("请求结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
+                Thread.Sleep(Config.WebSleep+new Random().Next(500,1000));
+                Config.WebTimeSpan.Release();
             }
             catch (Exception e)
             {
                 Console.WriteLine(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message);
                 L.File.Error(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message, e);
-                if (isMainUrl)
-                {
-                    Thread.Sleep(Config.WebSleep + new Random().Next(0, 200));
-                    Config.WebTimeSpan.Release();
-                    L.File.WarnFormat("请求错误结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                }
+                Thread.Sleep(Config.WebSleep + new Random().Next(0, 200));
+                Config.WebTimeSpan.Release();
+                L.File.WarnFormat("请求错误结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
                 if (postgetcount <= 5)
                 {
                     Thread.Sleep(Config.WebSleep + new Random().Next(1000, 5000));
-                    var webhtml= Postget_String(url,++postgetcount);
+                    var webhtml = Postget_String(url, ++postgetcount);
                     return webhtml;
                 }
                 else

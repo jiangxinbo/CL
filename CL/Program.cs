@@ -35,7 +35,6 @@ namespace CL
 
             setOption();
 
-
             Console.WriteLine("正在初始化...");
             Http.init();
             Thread.Sleep(2000);
