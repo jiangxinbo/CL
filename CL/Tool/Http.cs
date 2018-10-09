@@ -149,11 +149,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 {
                     Config.WebTimeSpan.Wait();
                     Console.WriteLine(DateTime.Now+"               进入封印：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
-                    L.File.WarnFormat("正在请求主网地址:{0},请求时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                }
-                else
-                {
-                    L.File.WarnFormat("普通请求地址  :{0},请求时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
+                    L.File.WarnFormat("正在请求地址:{0},请求时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
                 }
                 var response = client.GetAsync(url).Result;
                 response.Content.Headers.ContentType.CharSet = "gb2312";
@@ -163,45 +159,27 @@ namespace Console_DotNetCore_CaoLiu.Tool
                     Thread.Sleep(Config.WebSleep+new Random().Next(0,200));
                     Config.WebTimeSpan.Release();
                     Console.WriteLine(DateTime.Now + "                封印解除：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
-                    L.File.WarnFormat("主网请求结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                }
-                else
-                {
-                    L.File.WarnFormat("普通请求结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
+                    L.File.WarnFormat("请求结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
                 }
             }
             catch (Exception e)
             {
+                Console.WriteLine(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message);
+                L.File.Error(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message, e);
+                if (isMainUrl)
+                {
+                    Thread.Sleep(Config.WebSleep + new Random().Next(0, 200));
+                    Config.WebTimeSpan.Release();
+                    L.File.WarnFormat("请求错误结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
+                }
                 if (postgetcount <= 5)
                 {
-                    Console.WriteLine(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message);
-                    L.File.Error(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message, e);
-                    if (isMainUrl)
-                    {
-                        Thread.Sleep(Config.WebSleep + new Random().Next(1000, 3000));
-                        Config.WebTimeSpan.Release();
-                        L.File.WarnFormat("主网请求错误结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                    }
-                    else
-                    {
-                        L.File.WarnFormat("普通请求错误结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                    }
+                    Thread.Sleep(Config.WebSleep + new Random().Next(1000, 5000));
                     var webhtml= Postget_String(url,++postgetcount);
-                    
                     return webhtml;
                 }
                 else
                 {
-                    if (isMainUrl)
-                    {
-                        Thread.Sleep(Config.WebSleep + new Random().Next(0, 200));
-                        Config.WebTimeSpan.Release();
-                        L.File.WarnFormat("主网请求结束[报错]地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                    }
-                    else
-                    {
-                        L.File.WarnFormat("普通请求结束[报错]地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                    }
                     Console.WriteLine("Postget http请求 超过5次" + url + e.Message);
                     L.File.Error("Postget http请求 超过5次" + url, e);
                     result = null;
