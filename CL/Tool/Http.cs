@@ -172,23 +172,22 @@ namespace Console_DotNetCore_CaoLiu.Tool
             }
             catch (Exception e)
             {
-                
-                postgetcount++;
                 if (postgetcount <= 5)
                 {
-                    Console.WriteLine(" 请求次数:" + postgetcount + "   " + url + "   " + e.Message);
-                    L.File.Error(" 请求次数:" + postgetcount + "   " + url + "   " + e.Message, e);
-                    var webhtml= Postget_String(url,++postgetcount);
+                    Console.WriteLine(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message);
+                    L.File.Error(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message, e);
                     if (isMainUrl)
                     {
-                        Thread.Sleep(Config.WebSleep + new Random().Next(0, 200));
+                        Thread.Sleep(Config.WebSleep + new Random().Next(1000, 3000));
                         Config.WebTimeSpan.Release();
-                        L.File.WarnFormat("主网请求结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
+                        L.File.WarnFormat("主网请求错误结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
                     }
                     else
                     {
-                        L.File.WarnFormat("普通请求结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
+                        L.File.WarnFormat("普通请求错误结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
                     }
+                    var webhtml= Postget_String(url,++postgetcount);
+                    
                     return webhtml;
                 }
                 else
@@ -205,6 +204,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
                     }
                     Console.WriteLine("Postget http请求 超过5次" + url + e.Message);
                     L.File.Error("Postget http请求 超过5次" + url, e);
+                    result = null;
                 }
             }
             return result;
