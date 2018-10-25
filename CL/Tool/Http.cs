@@ -3,6 +3,7 @@ using Console_DotNetCore_CaoLiu.Bll;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
@@ -133,6 +134,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
             }
         }
 
+        static int currentCount = 0;
         /// <summary>
         /// 请求网站内容
         /// </summary>
@@ -142,39 +144,50 @@ namespace Console_DotNetCore_CaoLiu.Tool
         public static string Postget_String(string url,int postgetcount=1)
         {
             string result = null;
+            Stopwatch sw = new Stopwatch();
             try
             {
-
                 Config.WebTimeSpan.Wait();
                 Console.WriteLine(DateTime.Now+"               进入封印：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
                 L.File.WarnFormat("正在请求地址:{0},请求时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
                 var response = client.GetAsync(url).Result;
+                sw.Start();
                 response.Content.Headers.ContentType.CharSet = "gb2312";
                 result = response.Content.ReadAsStringAsync().Result;
                 Console.WriteLine(DateTime.Now + "                封印解除：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
                 //L.File.WarnFormat("请求结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                Thread.Sleep(Config.WebSleep+new Random().Next(500,1000));
-                Config.WebTimeSpan.Release();
+                
             }
             catch (Exception e)
             {
-                Console.WriteLine(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message);
-                L.File.Error(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message, e);
-                Thread.Sleep(Config.WebSleep + new Random().Next(0, 200));
+                //Console.WriteLine(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message);
+                //L.File.Error(" 请求错误，当前请求次数:" + postgetcount + "   " + url + "   " + e.Message, e);
+                //Thread.Sleep(Config.WebSleep + new Random().Next(0, 200));
+                //Config.WebTimeSpan.Release();
+                //L.File.WarnFormat("请求错误结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
+                //if (postgetcount <= 5)
+                //{
+                //    Thread.Sleep(Config.WebSleep + new Random().Next(1000, 5000));
+                //    var webhtml = Postget_String(url, ++postgetcount);
+                //    return webhtml;
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Postget http请求 超过5次" + url + e.Message);
+                //    L.File.Error("Postget http请求 超过5次" + url, e);
+                //    result = null;
+                //}
+            }
+            finally
+            {
+                Thread.Sleep(Config.WebSleep + new Random().Next(1000, 6000));
                 Config.WebTimeSpan.Release();
-                L.File.WarnFormat("请求错误结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                if (postgetcount <= 5)
-                {
-                    Thread.Sleep(Config.WebSleep + new Random().Next(1000, 5000));
-                    var webhtml = Postget_String(url, ++postgetcount);
-                    return webhtml;
-                }
-                else
-                {
-                    Console.WriteLine("Postget http请求 超过5次" + url + e.Message);
-                    L.File.Error("Postget http请求 超过5次" + url, e);
-                    result = null;
-                }
+                sw.Stop();
+                int cu=Interlocked.Increment(ref currentCount);
+                Console.WriteLine();
+                Console.WriteLine(sw.Elapsed.TotalSeconds + "    --    " + cu + "    **    " + Config.TaskRun.CurrentCount);
+                L.File.Debug(sw.Elapsed.TotalSeconds+"    --    "+cu+"    **    "+ Config.TaskRun.CurrentCount);
+                Console.WriteLine();
             }
             return result;
         }

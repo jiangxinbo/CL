@@ -112,15 +112,17 @@ namespace CL.Bll
                         {
                             Console.WriteLine(Thread.CurrentThread.ManagedThreadId+ "  -正在运行任务数量:当前信号量   {0}:{1}    -- {2}", tongji, Config.TaskRun.CurrentCount, DateTime.Now);
                             new PagePost().savePage(param as PagePostParam);
-                            Config.TaskRun.Release();
                             Console.WriteLine(Thread.CurrentThread.ManagedThreadId+ "  +正在运行任务数量:当前信号量   {0}:{1}    -- {2}", Interlocked.Decrement(ref tongji), Config.TaskRun.CurrentCount, DateTime.Now);
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine(Thread.CurrentThread.ManagedThreadId + "  +正在运行任务数量:当前信号量   {0}:{1}    -- {2}", Interlocked.Decrement(ref tongji), Config.TaskRun.CurrentCount, DateTime.Now);
-                            Config.TaskRun.Release();
                             Console.WriteLine("titleUrl " + titleUrl + ex.Message);
                             L.File.Error("titleUrl " + titleUrl, ex);
+                        }
+                        finally
+                        {
+                            Config.TaskRun.Release();
                         }
                     }, new PagePostParam() { Title = title, PostUrl = titleUrl, PageCount = currentPage, PostIndex = currentPost });
                 }

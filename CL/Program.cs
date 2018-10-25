@@ -41,6 +41,11 @@ namespace CL
             Config.WebSleep = 1500;
             for (int pageint = Config.Start_numb; pageint <= Config.End_numb; pageint++)
             {
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("当前正在处理第{0}页数据", pageint);
+                Console.WriteLine();
+                Console.WriteLine();
                 new PageList().AnalysisPage(pageint);
             }
             Console.WriteLine();
@@ -82,15 +87,18 @@ namespace CL
             Console.WriteLine("2=无码  15=有码  4=欧美  5=动漫  25=国产 26=中文  27=交流 请输入您喜的数字,按[ 回车 ]键 确定");
             var typeid = Console.ReadLine();
             Config.TypeId = int.Parse(typeid);
-            Console.WriteLine("您选择的类型是 {0}  ， 最大页数 {1}", cd[typeid],Http.getTotalPage(Config.TypeId));
+            int maxPage = Http.getTotalPage(Config.TypeId);
+            Console.WriteLine("您选择的类型是 {0}  ， 最大页数 {1}", cd[typeid], maxPage);
             Console.WriteLine();
 
-            Console.WriteLine("开始页数");
-            var start_page = Console.ReadLine();
-            Config.Start_numb = int.Parse(start_page);
-            Console.WriteLine("结束页数");
-            var end_page = Console.ReadLine();
-            Config.End_numb = int.Parse(end_page);
+            Console.WriteLine("开始页数 1");
+            var start_page = 1; //Console.ReadLine();
+            Config.Start_numb = 1;
+            //Config.Start_numb = int.Parse(start_page);
+            Console.WriteLine("结束页数 "+ maxPage);
+            var end_page = maxPage;// Console.ReadLine();
+            // Config.End_numb = int.Parse(end_page);
+            Config.End_numb = maxPage;
             Console.WriteLine("任务数量");
             var task_count = Console.ReadLine();
             Config.Task_count = int.Parse(task_count);

@@ -78,7 +78,7 @@ namespace CL.Bll
                 //如果没有文件
                 else
                 {
-                    L.File.Debug(string.Format("帖子有图片，【但帖子没有种子】 url:{0}", pw.Openurl));
+                    //L.File.Debug(string.Format("帖子有图片，【但帖子没有种子】 url:{0}", pw.Openurl));
                     Console.WriteLine("种子读取  失败");
                     imgStream.Close();
                     File.Copy("default.jpg", imgpath);
@@ -103,12 +103,12 @@ namespace CL.Bll
                     }
                     fs.Close();
                     torrentStream.Close();
-                    L.File.Debug(string.Format("种子已下载，【帖子没有图片】 url:{0}", pw.Openurl));
+                    //L.File.Debug(string.Format("种子已下载，【帖子没有图片】 url:{0}", pw.Openurl));
                 }
                 //如果没有文件
                 else
                 {
-                    L.File.Debug(string.Format("帖子既没有种子，又没有图片】 url:{0}", pw.Openurl));
+                    //L.File.Debug(string.Format("帖子既没有种子，又没有图片】 url:{0}", pw.Openurl));
                 }
                 File.Copy("default.jpg", imgpath);
                 Console.WriteLine("帖子中没有图片,种子下载完成 {0}", pw.Openurl);
