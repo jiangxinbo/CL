@@ -148,15 +148,11 @@ namespace Console_DotNetCore_CaoLiu.Tool
             try
             {
                 Config.WebTimeSpan.Wait();
-                Console.WriteLine(DateTime.Now+"               进入封印：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
-                L.File.WarnFormat("正在请求地址:{0},请求时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                var response = client.GetAsync(url).Result;
                 sw.Start();
+                Thread.Sleep(Config.WebSleep + new Random().Next(1000, 5000));
+                var response = client.GetAsync(url).Result;
                 response.Content.Headers.ContentType.CharSet = "gb2312";
                 result = response.Content.ReadAsStringAsync().Result;
-                Console.WriteLine(DateTime.Now + "                封印解除：剩余可进入数量 " + Config.WebTimeSpan.CurrentCount);
-                //L.File.WarnFormat("请求结束 , 地址:{0},结束时间{1},请求次数{2}", url, DateTime.Now, postgetcount);
-                
             }
             catch (Exception e)
             {
@@ -180,13 +176,23 @@ namespace Console_DotNetCore_CaoLiu.Tool
             }
             finally
             {
-                Thread.Sleep(Config.WebSleep + new Random().Next(1000, 6000));
+                
                 Config.WebTimeSpan.Release();
                 sw.Stop();
                 int cu=Interlocked.Increment(ref currentCount);
+                if (cu < 1)
+                {
+                    L.File.Debug("-----------------------------------------------------------------------------------------------");
+                    L.File.Debug(" ");
+                }
                 Console.WriteLine();
-                Console.WriteLine(sw.Elapsed.TotalSeconds + "    --    " + cu + "    **    " + Config.TaskRun.CurrentCount);
-                L.File.Debug(sw.Elapsed.TotalSeconds+"    --    "+cu+"    **    "+ Config.TaskRun.CurrentCount);
+                Console.WriteLine(sw.Elapsed.TotalSeconds + "秒    --    " + cu + "次请求    **    " + Config.TaskRun.CurrentCount+"   —  正在运行任务数量"+ Config.currentRunTaskCount);
+                L.File.Debug(sw.Elapsed.TotalSeconds + "秒    --    " + cu + "次请求    **    " + Config.TaskRun.CurrentCount + "   —  正在运行任务数量" + Config.currentRunTaskCount);
+                if (cu < 1)
+                {
+                    L.File.Debug("-----------------------------------------------------------------------------------------------");
+                    L.File.Debug(" ");
+                }
                 Console.WriteLine();
             }
             return result;

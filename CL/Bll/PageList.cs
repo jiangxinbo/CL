@@ -28,6 +28,8 @@ namespace CL.Bll
         /// </summary>
         private int currentPost = 1;
 
+
+
         /// <summary>
         /// 解析页
         /// </summary>
@@ -105,7 +107,7 @@ namespace CL.Bll
                     }
                     Config.TaskRun.Wait();
                     Interlocked.Increment(ref tongji);
-                    
+                    Interlocked.Increment(ref Config.currentRunTaskCount);
                     Console.WriteLine("  正在处理第{0}页数据中的第{1}个帖子", currentPage, currentPost);
                     Task.Factory.StartNew((param) => {
                         try
@@ -122,6 +124,7 @@ namespace CL.Bll
                         }
                         finally
                         {
+                            Interlocked.Decrement(ref Config.currentRunTaskCount);
                             Config.TaskRun.Release();
                         }
                     }, new PagePostParam() { Title = title, PostUrl = titleUrl, PageCount = currentPage, PostIndex = currentPost });

@@ -15,6 +15,11 @@ namespace Console_DotNetCore_CaoLiu.Bll
         public static SemaphoreSlim TaskRun;
 
         /// <summary>
+        /// 当前正在运行的任务数量
+        /// </summary>
+        public static int currentRunTaskCount = 0;
+
+        /// <summary>
         /// 用于避免频繁访问被封ip
         /// </summary>
         public static SemaphoreSlim WebTimeSpan = new SemaphoreSlim(1, 1);
