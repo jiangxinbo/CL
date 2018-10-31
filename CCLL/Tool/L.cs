@@ -52,7 +52,6 @@ namespace Tool
 
         public static void initConsole()
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var repository = LogManager.CreateRepository("NETCoreRepository");
             string config_path = Path.Combine(Environment.CurrentDirectory, "log4net.config");
             XmlConfigurator.ConfigureAndWatch(repository, new FileInfo(config_path));

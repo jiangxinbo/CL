@@ -84,7 +84,6 @@
     <Compile Include="Tool\MyGroup.cs" />
     <Compile Include="Tool\Paging.cs" />
     <Compile Include="Tool\Serialize.cs" />
-    <Compile Include="Tool\TcpClientHttpRequest.cs" />
     <Compile Include="Tool\Time.cs" />
     <Compile Include="Tool\Titles.cs" />
     <EmbeddedResource Include="Form1.resx">

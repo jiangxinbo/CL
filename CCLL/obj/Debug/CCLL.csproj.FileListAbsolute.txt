@@ -8,3 +8,13 @@ E:\C#Project\CL\CCLL\obj\Debug\CCLL.csproj.GenerateResource.cache
 E:\C#Project\CL\CCLL\obj\Debug\CCLL.csproj.CoreCompileInputs.cache
 E:\C#Project\CL\CCLL\obj\Debug\CCLL.exe
 E:\C#Project\CL\CCLL\obj\Debug\CCLL.pdb
+E:\C#Project\CL\CCLL\bin\Debug\HtmlAgilityPack.dll
+E:\C#Project\CL\CCLL\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\C#Project\CL\CCLL\bin\Debug\log4net.dll
+E:\C#Project\CL\CCLL\bin\Debug\Newtonsoft.Json.dll
+E:\C#Project\CL\CCLL\bin\Debug\HtmlAgilityPack.pdb
+E:\C#Project\CL\CCLL\bin\Debug\HtmlAgilityPack.xml
+E:\C#Project\CL\CCLL\bin\Debug\ICSharpCode.SharpZipLib.xml
+E:\C#Project\CL\CCLL\bin\Debug\log4net.xml
+E:\C#Project\CL\CCLL\bin\Debug\Newtonsoft.Json.xml
+E:\C#Project\CL\CCLL\obj\Debug\CCLL.csproj.CopyComplete
