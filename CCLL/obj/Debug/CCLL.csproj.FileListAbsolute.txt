@@ -1,0 +1,10 @@
+E:\C#Project\CL\CCLL\bin\Debug\CCLL.exe.config
+E:\C#Project\CL\CCLL\bin\Debug\CCLL.exe
+E:\C#Project\CL\CCLL\bin\Debug\CCLL.pdb
+E:\C#Project\CL\CCLL\obj\Debug\CCLL.csprojAssemblyReference.cache
+E:\C#Project\CL\CCLL\obj\Debug\CCLL.Form1.resources
+E:\C#Project\CL\CCLL\obj\Debug\CCLL.Properties.Resources.resources
+E:\C#Project\CL\CCLL\obj\Debug\CCLL.csproj.GenerateResource.cache
+E:\C#Project\CL\CCLL\obj\Debug\CCLL.csproj.CoreCompileInputs.cache
+E:\C#Project\CL\CCLL\obj\Debug\CCLL.exe
+E:\C#Project\CL\CCLL\obj\Debug\CCLL.pdb
