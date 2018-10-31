@@ -1,10 +1,12 @@
-﻿using Console_DotNetCore_CaoLiu.Bll;
+﻿using CL.Bll;
+using Console_DotNetCore_CaoLiu.Bll;
 using Console_DotNetCore_CaoLiu.Tool;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,6 +22,8 @@ namespace CCLL
         public Form1()
         {
             InitializeComponent();
+            
+            textBox5.Text = Path.Combine(Application.StartupPath, "CL"); 
             DataTable ADt = new DataTable();
             DataColumn ADC1 = new DataColumn("name", typeof(string)); 
             DataColumn ADC2 = new DataColumn("id", typeof(int));
@@ -66,45 +70,86 @@ namespace CCLL
             comboBox1.ValueMember = "id";  //控件值的列名
 
             comboBox1.DataSource = ADt;
-
-
-
+            Config.pb = pictureBox1;
+            Config.lb = listBox1;
         }
         public dl1st updatebox;
         private void button1_Click(object sender, EventArgs e)
         {
-            var url = textBox1.Text;
-            var info = new Http_Client().get(Config.Url);
-            if (info == null)
-            {
-                listBox1.Items.Add("网址错误");
-            }
- 
+            Task.Factory.StartNew(() => {
+                var url = textBox1.Text;
+                Config.Url = url;
+                var info = new Http_Client().get(Config.Url);
+                if (info == null)
+                {
+                    comboBox1.Invoke(new Action(() => {
+                        listBox1.Items.Add("网址错误");
+                    }));
+                    
+                }
+
+                comboBox1.Invoke(new Action(()=> {
+                    var typeid = comboBox1.SelectedValue;
+                    Config.TypeId = (int)(typeid);
+                    listBox1.Items.Add("您选择了 "+ comboBox1.Text);
+                    listBox1.Refresh();
+                }));
+               
+                
+
+                textBox3.Invoke(new Action(() => {
+                    int maxPage = Http.getTotalPage(Config.TypeId);
+                    Config.End_numb = maxPage;
+                    textBox3.Text = maxPage.ToString();
+                }));
+
+                textBox2.Invoke(new Action(() => {
+                    var start_str = textBox2.Text.ToString();
+                    Config.Start_numb = int.Parse(start_str);
+                }));
+
+                textBox4.Invoke(new Action(() => {
+                    var task_count_str = textBox4.Text.ToString();
+                    Config.Task_count = int.Parse(task_count_str);
+                }));
+
+                textBox5.Invoke(new Action(() => {
+                    var filepath = textBox5.Text.ToString();
+                    Config.Img_path = filepath;
+                }));
+
+
+                comboBox1.Invoke(new Action(() => {
+                    listBox1.Items.Clear();
+                    listBox1.Items.Add("正在初始化...");
+                    Http.init();
+                    Thread.Sleep(2000);
+                    Config.WebSleep = 1500;
+                    listBox1.Items.Clear();
+                    listBox1.Items.Add("初始化完成");
+                    for (int pageint = Config.Start_numb; pageint <= Config.End_numb; pageint++)
+                    {
+                        listBox1.Items.Clear();
+                        listBox1.Items.Add(string.Format("当前正在处理第{0}页数据", pageint));
+                        new PageList().AnalysisPage(pageint);
+                    }
+                    listBox1.Items.Add("----------------------------------------------------------------");
+                    listBox1.Items.Add("----------------------------------------------------------------");
+                    listBox1.Items.Add("----------------------全部已完成!-------------------------------");
+                    listBox1.Items.Add("----------------------------------------------------------------");
+                }));
+
+                
+            });
             
-            var typeid = comboBox1.SelectedValue;
-            Config.TypeId = (int)(typeid);
-            //int maxPage = Http.getTotalPage(Config.TypeId);
-            //Console.WriteLine("您选择的类型是 {0}  ， 最大页数 {1}", cd[typeid], maxPage);
-            //Console.WriteLine();
 
-            //Console.WriteLine("开始页数 1");
-            //var start_page = 1; //Console.ReadLine();
-            //Config.Start_numb = 1;
-            ////Config.Start_numb = int.Parse(start_page);
-            //Console.WriteLine("结束页数 " + maxPage);
-            //var end_page = maxPage;// Console.ReadLine();
-            //// Config.End_numb = int.Parse(end_page);
-            //Config.End_numb = maxPage;
-            //Console.WriteLine("任务数量");
-            //var task_count = Console.ReadLine();
-            //Config.Task_count = int.Parse(task_count);
+        }
 
-            //Console.WriteLine("请输入图片生成地址 (想要图片放到哪个文件夹，就把那个文件夹拖到这句话上面) 按[ 回车 ]键 确定");
-            //var filepath = Console.ReadLine();
-            //Config.Img_path = filepath;
-
-
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog path = new FolderBrowserDialog();
+            path.ShowDialog();
+            this.textBox5 .Text = path.SelectedPath;
         }
     }
 }

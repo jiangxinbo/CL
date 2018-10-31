@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Console_DotNetCore_CaoLiu.Bll
 {
@@ -13,6 +14,9 @@ namespace Console_DotNetCore_CaoLiu.Bll
         /// </summary>
         public static SemaphoreSlim TaskRun;
 
+        public static PictureBox pb;
+
+        public static ListBox lb;
 
         /// <summary>
         /// 当前正在运行的任务数量

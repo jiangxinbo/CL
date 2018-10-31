@@ -204,6 +204,7 @@ namespace CL.Tool
                     {
                         continue;
                     }
+
                     try
                     {
                         Image img = Image.FromStream(ms);
@@ -213,6 +214,8 @@ namespace CL.Tool
                             MemoryStream truems = new MemoryStream();
                             img.Save(truems, ImageFormat.Jpeg);
                             streamsList.Add(truems);
+                            Config.pb.Image = img;
+                            Config.pb.Refresh();
                         }
                         else
                         {
