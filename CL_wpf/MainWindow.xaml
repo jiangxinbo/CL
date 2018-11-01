@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CL_wpf"
         mc:Ignorable="d"
-        Title="草榴图种下载器" Height="415.477" Width="440.517">
+        Title="草榴图种下载器" Height="415.477" Width="440.517" Closing="Window_Closing">
     <Grid >
         <Label Content="网络地址:" Margin="7,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
         <TextBox Name="url_text" Height="23" Margin="73,5,0,0" TextWrapping="Wrap" Text="https://cl.k6j9.icu" VerticalAlignment="Top" HorizontalAlignment="Left" Width="350"/>

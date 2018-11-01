@@ -142,5 +142,11 @@ namespace CL_wpf
         {
             Clipboard.SetText(e.AddedItems[0].ToString());
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            wi.Close();
+            
+        }
     }
 }
