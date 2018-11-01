@@ -47,7 +47,7 @@ namespace CL.Bll
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Config.show(ex.Message);
                 L.File.Error("savePage()-" + url, ex);
                 return;
             }
@@ -115,7 +115,7 @@ namespace CL.Bll
             }
 
             var totalpost= Interlocked.Increment(ref PageList.TotalPost);
-            Console.WriteLine("--第 {0} 页数据中的第[{1}]个帖子处理完毕--,已处理【{2}】个帖子", ppp.PageCount, ppp.PostIndex, totalpost);
+            Config.show(string.Format("--第 {0} 页数据中的第[{1}]个帖子处理完毕--,已处理【{2}】个帖子", ppp.PageCount, ppp.PostIndex, totalpost));
         }
     }
 }

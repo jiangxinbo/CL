@@ -52,7 +52,7 @@ namespace CL.Bll
             HtmlNode view = doc.GetElementbyId("main");
             if (view == null)
             {
-                Console.WriteLine("AnalysisPage() html 没找到 id=main:" + url);
+                Config.show("AnalysisPage() html 没找到 id=main:" + url);
                 return;
             }
             HtmlNode tbody = null;
@@ -61,7 +61,7 @@ namespace CL.Bll
                 HtmlNode c_main = view.SelectSingleNode("div[3]/table");
                 if (c_main == null)
                 {
-                    Console.WriteLine("AnalysisPage() html 没找到 div[3]/table:" + url);
+                    Config.show("AnalysisPage() html 没找到 div[3]/table:" + url);
                     return;
                 }
                 string table = c_main.OuterHtml;
@@ -79,13 +79,13 @@ namespace CL.Bll
             }
             if (tbody == null)
             {
-                Console.WriteLine("AnalysisPage() html 没找到 table/tbody:" + url);
+                Config.show("AnalysisPage() html 没找到 table/tbody:" + url);
                 return;
             }
             var trlist = tbody.SelectNodes("tr");
             if (trlist == null || trlist.Count == 0)
             {
-                Console.WriteLine("AnalysisPage() html 没有找到帖子行数 或者行数为0:" + url);
+                Config.show("AnalysisPage() html 没有找到帖子行数 或者行数为0:" + url);
                 return;
             }
             bool flag = false;
@@ -108,7 +108,7 @@ namespace CL.Bll
                     Config.TaskRun.Wait();
                     Interlocked.Increment(ref tongji);
                     Interlocked.Increment(ref Config.currentRunTaskCount);
-                    Console.WriteLine("  正在处理第{0}页数据中的第{1}个帖子", currentPage, currentPost);
+                    Config.show(string.Format("  正在处理第{0}页数据中的第{1}个帖子", currentPage, currentPost));
                     Task.Factory.StartNew((param) => {
                         try
                         {
@@ -119,7 +119,7 @@ namespace CL.Bll
                         catch (Exception ex)
                         {
                             //Console.WriteLine(Thread.CurrentThread.ManagedThreadId + "  +正在运行任务数量:当前信号量   {0}:{1}    -- {2}", Interlocked.Decrement(ref tongji), Config.TaskRun.CurrentCount, DateTime.Now);
-                            Console.WriteLine("titleUrl " + titleUrl + ex.Message);
+                            Config.show("titleUrl " + titleUrl + ex.Message);
                             L.File.Error("titleUrl " + titleUrl, ex);
                         }
                         finally
@@ -137,8 +137,8 @@ namespace CL.Bll
                         {
                             flag = true;
                         }
-                        Console.WriteLine("正在处理第{0}页数据中的第{1}个帖子--[普通主題]", currentPage, currentPost);
-                        Console.WriteLine("        第{0}页数据中的第{1}个帖子,处理完毕", currentPage, currentPost);
+                        Config.show(string.Format("正在处理第{0}页数据中的第{1}个帖子--[普通主題]", currentPage, currentPost));
+                        Config.show(string.Format("        第{0}页数据中的第{1}个帖子,处理完毕", currentPage, currentPost));
                     }
                     else
                     {
@@ -146,8 +146,8 @@ namespace CL.Bll
                         {
                             flag = true;
                         }
-                        Console.WriteLine("正在处理第{0}页数据中的第{1}个帖子--[最後發表]", currentPage, currentPost);
-                        Console.WriteLine("        第{0}页数据中的第{1}个帖子,处理完毕", currentPage, currentPost);
+                        Config.show(string.Format("正在处理第{0}页数据中的第{1}个帖子--[最後發表]", currentPage, currentPost));
+                        Config.show(string.Format("        第{0}页数据中的第{1}个帖子,处理完毕", currentPage, currentPost));
                     }
                 }
                 

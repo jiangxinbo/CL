@@ -79,7 +79,7 @@ namespace Console_DotNetCore_CaoLiu.Bll
             }
             catch (Exception ex)
             {
-                Console.WriteLine("GetTorrent({0}) html解析错误", pw.Download);
+                Config.show(string.Format("GetTorrent({0}) html解析错误", pw.Download));
                 L.File.Error(string.Format("GetTorrent({0}) html解析错误", pw.Download), ex);
                 return null;
             }
@@ -175,7 +175,7 @@ namespace Console_DotNetCore_CaoLiu.Bll
             }
             catch (Exception ex)
             {
-                Console.WriteLine("GetTorrentHtml() id={0} ,hash解析错误", pw.Id);
+                Config.show(string.Format("GetTorrentHtml() id={0} ,hash解析错误", pw.Id));
                 L.File.ErrorFormat(url, ex);
                 return null;
             }
@@ -225,7 +225,7 @@ namespace Console_DotNetCore_CaoLiu.Bll
             }
             catch (Exception e)
             {
-                Console.WriteLine("GetTorrentHtml() id={0}  url:{1}  url长度:{2}", pw.Id.ToString().PadRight(8), url, url.Length);
+                Config.show(string.Format("GetTorrentHtml() id={0}  url:{1}  url长度:{2}", pw.Id.ToString().PadRight(8), url, url.Length));
                 L.File.Error(string.Format("GetTorrentHtml() id={0}  url:{1}  url长度:{2}", pw.Id.ToString().PadRight(8), url, url.Length), e);
                 //关闭连接和流
                 if (response != null)

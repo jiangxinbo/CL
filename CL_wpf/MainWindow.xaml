@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CL_wpf"
         mc:Ignorable="d"
-        Title="草榴图种下载器" Height="559.518" Width="813.012">
+        Title="草榴图种下载器" Height="415.477" Width="440.517">
     <Grid >
-        <Label Content="网络地址:" Margin="20,10,711,0" VerticalAlignment="Top"/>
-        <TextBox Name="url_text" Height="23" Margin="86,10,0,0" TextWrapping="Wrap" Text="https://cl.k6j9.icu" VerticalAlignment="Top" HorizontalAlignment="Left" Width="696"/>
-        <Label Content="起始页数:" Margin="0,42,711,0" VerticalAlignment="Top" RenderTransformOrigin="1.9,1.087" HorizontalAlignment="Right" Width="61"/>
-        <Label Content="结束页数:" Margin="201,40,530,0" VerticalAlignment="Top" RenderTransformOrigin="1.562,2.161"/>
-        <Label Content="任务数量:" Margin="382,42,349,0" VerticalAlignment="Top" RenderTransformOrigin="1.562,2.161"/>
-        <Label Content="类型选择:" Margin="20,72,711,0" VerticalAlignment="Top" RenderTransformOrigin="1.562,2.161"/>
-        <Label Content="图种目录:" Margin="382,72,349,0" VerticalAlignment="Top" RenderTransformOrigin="1.562,2.161"/>
-        <TextBox Name="start_text" HorizontalAlignment="Left" Height="23" Margin="86,42,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="90"/>
-        <TextBox x:Name="end_text" HorizontalAlignment="Left" Height="23" Margin="267,40,0,0" TextWrapping="Wrap"  IsReadOnly="True"  VerticalAlignment="Top" Width="90"/>
-        <TextBox x:Name="task_count_text" HorizontalAlignment="Left" Height="23" Margin="448,42,0,0" TextWrapping="Wrap"  Text="20"   VerticalAlignment="Top" Width="90"/>
-        <ComboBox Name="combobox_type" HorizontalAlignment="Left" Margin="86,72,0,0" VerticalAlignment="Top" Width="90">
+        <Label Content="网络地址:" Margin="7,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
+        <TextBox Name="url_text" Height="23" Margin="73,5,0,0" TextWrapping="Wrap" Text="https://cl.k6j9.icu" VerticalAlignment="Top" HorizontalAlignment="Left" Width="350"/>
+        <Label Content="起始页数:" Margin="8,35,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.9,1.087" HorizontalAlignment="Left" Width="61"/>
+        <Label Content="结束页数:" Margin="237,35,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.562,2.161" HorizontalAlignment="Left" Width="69"/>
+        <Label Content="任务数量:" Margin="237,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.562,2.161" HorizontalAlignment="Left" Width="69"/>
+        <Label Content="类型选择:" Margin="10,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.562,2.161" HorizontalAlignment="Left" Width="100"/>
+        <Label Content="图种目录:" Margin="7,98,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.562,2.161" HorizontalAlignment="Left" Width="100"/>
+        <TextBox Name="start_text" HorizontalAlignment="Left" Height="23" Margin="73,37,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="90"/>
+        <TextBox x:Name="end_text" IsEnabled="False" Text="不用填" HorizontalAlignment="Left" Height="23" Margin="306,37,0,0" TextWrapping="Wrap"  IsReadOnly="True"  VerticalAlignment="Top" Width="117"/>
+        <TextBox x:Name="task_count_text" Height="23" Margin="306,68,0,0" TextWrapping="Wrap"  Text="20"   VerticalAlignment="Top" HorizontalAlignment="Left" Width="117"/>
+        <ComboBox Name="combobox_type" HorizontalAlignment="Left" Margin="75,68,0,0" VerticalAlignment="Top" Width="90">
             <ComboBoxItem Content="无码" Tag="2" IsSelected="True"></ComboBoxItem>
             <ComboBoxItem Content="有码" Tag="15"></ComboBoxItem>
             <ComboBoxItem Content="欧美" Tag="4"></ComboBoxItem>
@@ -26,15 +26,16 @@
             <ComboBoxItem Content="中文" Tag="26"></ComboBoxItem>
             <ComboBoxItem Content="交流" Tag="27"></ComboBoxItem>
         </ComboBox>
-        <CheckBox Content="是否显示图片" HorizontalAlignment="Left" Margin="215,78,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <TextBox Name="file_path_text" HorizontalAlignment="Left" Height="23" Margin="448,70,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="308"/>
-        <Button Content="..." HorizontalAlignment="Left" Margin="756,70,0,0" VerticalAlignment="Top" Width="26" Height="23" Click="Button_Click_1"/>
-        <Button Content="开始" HorizontalAlignment="Left" Margin="20,102,0,0" VerticalAlignment="Top" Width="762" Height="63" Click="Button_Click"/>
-        <Image Name="image" Source="D:\360wallpaper.jpg" HorizontalAlignment="Center"  Height="319" Margin="448,200,0,0" VerticalAlignment="Top" Width="334"/>
-        <ListBox Name="lb"  HorizontalAlignment="Left" Height="319" Margin="20,200,0,0" VerticalAlignment="Top" Width="415"/>
-        <Label Content="输出:" HorizontalAlignment="Left" Margin="20,175,0,0" VerticalAlignment="Top"/>
-        <Label Content="获取图片:" HorizontalAlignment="Left" Margin="460,175,0,0" VerticalAlignment="Top"/>
-
-
+        <CheckBox Name="isshowpb" Content="是否显示图片" HorizontalAlignment="Left" Margin="331,206,0,0" VerticalAlignment="Top" IsChecked="True" Checked="isshowpb_Checked" Unchecked="isshowpb_Unchecked"/>
+        <TextBox Name="file_path_text" Height="23" Margin="75,98,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" HorizontalAlignment="Left" Width="322"/>
+        <Button Name="file_btn" Content="" Margin="397,98,0,0" VerticalAlignment="Top" Height="23" Click="Button_Click_1" RenderTransformOrigin="0.5,0.565" HorizontalAlignment="Left" Width="26"   >
+            <Button.Background>
+                <ImageBrush ImageSource="a:/d.png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+        <Button Name="btn1" Content="开始" HorizontalAlignment="Left" Margin="7,132,0,0" VerticalAlignment="Top" Width="416" Height="63" Click="Button_Click"/>
+        <ListBox Name="lb" Margin="8,230,10,10"  SelectionChanged="lb_SelectionChanged" />
+        <Label Content="输出:" HorizontalAlignment="Left" Margin="7,200,0,0" VerticalAlignment="Top"/>
+        <Label Name="page_l" Content="Label" HorizontalAlignment="Left" Margin="73,200,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

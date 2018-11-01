@@ -75,7 +75,6 @@
     <Compile Include="Tool\GuangGaoImg.cs" />
     <Compile Include="Tool\Http.cs" />
     <Compile Include="Tool\Http_Client.cs" />
-    <Compile Include="Tool\Http_Client2.cs" />
     <Compile Include="Tool\ImageMerge.cs" />
     <Compile Include="Tool\L.cs" />
     <Compile Include="Tool\MyGroup.cs" />
@@ -83,6 +82,9 @@
     <Compile Include="Tool\Serialize.cs" />
     <Compile Include="Tool\Time.cs" />
     <Compile Include="Tool\Titles.cs" />
+    <Compile Include="WindowImage.xaml.cs">
+      <DependentUpon>WindowImage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,6 +103,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="WindowImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ErrorUrl.cs" />

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using CL_wpf;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Console_DotNetCore_CaoLiu.Bll
 {
@@ -17,6 +19,11 @@ namespace Console_DotNetCore_CaoLiu.Bll
         public static Image pb;
 
         public static ListBox lb;
+
+        /// <summary>
+        /// 是否显示图片
+        /// </summary>
+        public static bool isShowPB;
 
         /// <summary>
         /// 当前正在运行的任务数量
@@ -39,6 +46,78 @@ namespace Console_DotNetCore_CaoLiu.Bll
             WebSleep = 500;
             Pwd = "eeak47";
             Uname = "jiangxinbo";
+        }
+
+        public static void show(string msg)
+        {
+            lb.Dispatcher.Invoke(() =>
+            {
+                lb.Items.Add(msg);
+                
+            });
+            lb.Dispatcher.Invoke(() =>
+            {
+                lb.ScrollIntoView(lb.Items[lb.Items.Count - 1]);
+            });
+        }
+
+        public static void showadd(string msg)
+        {
+            lb.Dispatcher.Invoke(() =>
+            {
+               lb.Items[lb.Items.Count - 1]= lb.Items[lb.Items.Count - 1].ToString() + msg;
+
+            });
+            lb.Dispatcher.Invoke(() =>
+            {
+                lb.ScrollIntoView(lb.Items[lb.Items.Count - 1]);
+            });
+        }
+
+        public static void show_clear(string msg)
+        {
+            lb.Dispatcher.Invoke(() =>
+            {
+                lb.Items.Clear();
+                lb.Items.Add(msg);
+            });
+            lb.Dispatcher.Invoke(() =>
+            {
+                lb.ScrollIntoView(lb.Items[lb.Items.Count - 1]);
+            });
+        }
+
+        public static void showImage(MemoryStream stream)
+        {
+            //if (!isShowPB && pb!=null) {
+            //    pb.Dispatcher.Invoke(() =>
+            //    {
+            //        if(pb.Source!=null)
+            //        {
+            //            Config.pb.BeginInit();
+            //            pb.Source = null;
+            //            Config.pb.EndInit();
+            //        }
+            //    });
+            //    return;
+            //}
+            Config.pb.Dispatcher.Invoke(() =>
+            {
+                Config.pb.BeginInit();
+                try
+                {
+                    stream.Position = 0;
+                    Config.pb.Source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.Default);
+                }
+                catch (Exception ex)
+                {
+                    Config.show(ex.Message);
+                }
+                finally
+                {
+                    Config.pb.EndInit();
+                }
+            });
         }
 
         public static string ProcessDirectory

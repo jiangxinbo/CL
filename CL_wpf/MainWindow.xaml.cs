@@ -25,141 +25,122 @@ namespace CL_wpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        WindowImage wi;
         public MainWindow()
         {
+            wi = new WindowImage(this);
             InitializeComponent();
             file_path_text.Text= Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CL");
+            if (isshowpb.IsChecked.GetValueOrDefault())
+            {
+                Config.isShowPB = true;
+            }
+            else
+            {
+                Config.isShowPB = false;
+            }
+            Config.pb = wi.pb;
+            Config.lb = lb;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            btn1.IsEnabled = false;
+            file_btn.IsEnabled = false;
+            file_path_text.IsEnabled = false;
+            combobox_type.IsEnabled = false;
             Task.Factory.StartNew(() =>
             {
-                for(int i=1;i<100000;i++)
+                isshowpb.Dispatcher.Invoke(new Action(() =>
                 {
-                    if (i % 10 == 0)
-
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                            image.Source = new BitmapImage(new Uri(@"F:\1.jpeg"));
-                        }));
-
-                    if (i % 10 == 1)
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                            image.Source = new BitmapImage(new Uri(@"F:\2.png"));
-                        }));
-                    if (i % 10 == 2)
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                        image.Source = new BitmapImage(new Uri(@"F:\3.jpeg"));
-                        }));
-                    if (i % 10 == 3)
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                            image.Source = new BitmapImage(new Uri(@"F:\4.png"));
-                        }));
-                    if (i % 10 == 4)
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                            image.Source = new BitmapImage(new Uri(@"F:\5.jpg"));
-            }));
-            if (i % 10 == 5)
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                            image.Source = new BitmapImage(new Uri(@"F:\6.jpg"));
-            }));
-            if (i % 10 == 6)
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                            image.Source = new BitmapImage(new Uri(@"F:\7.jpg"));
-            }));
-            if (i % 10 == 7)
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                            image.Source = new BitmapImage(new Uri(@"F:\8.jpeg"));
-            }));
-            if (i % 10 == 8)
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                            image.Source = new BitmapImage(new Uri(@"F:\9.jpg"));
-            }));
-            if (i % 10 == 9)
-                    {
-                        image.Dispatcher.Invoke(new Action(() =>
-                        {
-                            image.Source = new BitmapImage(new Uri(@"F:\0.gif"));
-
-                        }));
-                       
-                    }
-                        
-                    
-
-        }
-
-
-                url_text.Dispatcher.Invoke(new Action(() => {
+                    bool isshow = isshowpb.IsChecked.GetValueOrDefault();
+                }));
+                url_text.Dispatcher.Invoke(new Action(() =>
+                {
                     var url = url_text.Text;
                     Config.Url = url;
                 }));
-               
+
                 var info = new Http_Client().get(Config.Url);
                 if (info == null)
                 {
-                    lb.Items.Add("网址错误");
+                    lb.Dispatcher.Invoke(new Action(() =>
+                    {
+                        lb.Items.Add("网址错误");
+                    }));
                 }
-                var typeid = (combobox_type.SelectedItem as ComboBoxItem).Tag.ToString();
-                Config.TypeId = int.Parse(typeid);
-                lb.Items.Add("您选择了 " + combobox_type.Text);
-
+                combobox_type.Dispatcher.Invoke(new Action(() =>
+                {
+                    var typeid = (combobox_type.SelectedItem as ComboBoxItem).Tag.ToString();
+                    Config.TypeId = int.Parse(typeid);
+                    lb.Items.Add("您选择了 " + combobox_type.Text);
+                }));
 
                 int maxPage = Http.getTotalPage(Config.TypeId);
                 Config.End_numb = maxPage;
-                end_text.Text = maxPage.ToString();
+                end_text.Dispatcher.Invoke(new Action(() =>
+                {
+                    end_text.Text = maxPage.ToString();
+                    var start_str = start_text.Text.ToString();
+                    Config.Start_numb = int.Parse(start_str);
+                    var task_count_str = task_count_text.Text.ToString();
+                    Config.Task_count = int.Parse(task_count_str);
+                    var filepath = file_path_text.Text.ToString();
+                    Config.Img_path = filepath;
+                    lb.Items.Clear();
+                    lb.Items.Add("正在初始化...");
+                }));
 
-                var start_str = start_text.Text.ToString();
-                Config.Start_numb = int.Parse(start_str);
-
-                var task_count_str = task_count_text.Text.ToString();
-                Config.Task_count = int.Parse(task_count_str);
-
-                var filepath = file_path_text.Text.ToString();
-                Config.Img_path = filepath;
-
-
-                lb.Items.Clear();
-                lb.Items.Add("正在初始化...");
                 Http.init();
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 Config.WebSleep = 1500;
-                lb.Items.Clear();
-                lb.Items.Add("初始化完成");
-                for (int pageint = Config.Start_numb; pageint <= Config.End_numb; pageint++)
+                lb.Dispatcher.Invoke(new Action(() =>
                 {
                     lb.Items.Clear();
-                    lb.Items.Add(string.Format("当前正在处理第{0}页数据", pageint));
+                    lb.Items.Add("初始化完成");
+                }));
+                for (int pageint = Config.Start_numb; pageint <= Config.End_numb; pageint++)
+                {
+                    page_l.Dispatcher.Invoke(() =>
+                    {
+                        page_l.Content = string.Format("当前正在处理第{0}页数据", pageint);
+                    });
                     new PageList().AnalysisPage(pageint);
                 }
-                lb.Items.Add("----------------------------------------------------------------");
-                lb.Items.Add("----------------------------------------------------------------");
-                lb.Items.Add("----------------------全部已完成!-------------------------------");
-                lb.Items.Add("----------------------------------------------------------------");
-
+                lb.Dispatcher.Invoke(new Action(() =>
+                {
+                    lb.Items.Add("----------------------------------------------------------------");
+                    lb.Items.Add("----------------------------------------------------------------");
+                    lb.Items.Add("----------------------全部已完成!-------------------------------");
+                    lb.Items.Add("----------------------------------------------------------------");
+                }));
             });
-            
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.FolderBrowserDialog openFileDialog = new System.Windows.Forms.FolderBrowserDialog();  //选择文件夹
-
-
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)//注意，此处一定要手动引入System.Window.Forms空间，否则你如果使用默认的DialogResult会发现没有OK属性
             {
                 file_path_text.Text = openFileDialog.SelectedPath;
             }
+        }
 
+        private void isshowpb_Checked(object sender, RoutedEventArgs e)
+        {
+            Config.isShowPB = true;
+            wi.Show();
+        }
+
+        private void isshowpb_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Config.isShowPB = false;
+            wi.Hide();
+        }
+
+        private void lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Clipboard.SetText(e.AddedItems[0].ToString());
         }
     }
 }

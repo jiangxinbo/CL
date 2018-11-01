@@ -72,7 +72,8 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 //Console.WriteLine();
                 //Console.WriteLine("                                         开始请求文件    " + DateTime.Now);
                 var data = new Http_Client().get(url);
-                Console.Write(".");
+                Config.show(".");
+                //Console.Write(".");
                 //Console.WriteLine();
                 //Console.WriteLine("                                         文件请求结束   " + DateTime.Now);
                 //Console.WriteLine();
@@ -80,7 +81,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
             }
             catch (Exception ex)
             {
-                Console.WriteLine("url:{0} , error:{1}", url,ex.Message);
+                Console.WriteLine(string.Format("url:{0} , error:{1}", url,ex.Message));
                 L.File.Error(url, ex);
                 return null;
             }
@@ -110,13 +111,13 @@ namespace Console_DotNetCore_CaoLiu.Tool
                 String result = rsp.Content.ReadAsStringAsync().Result;
                 if (result.IndexOf("您已經順利登錄") > 0)
                 {
-                    Console.WriteLine("登录成功");
+                    Config.show("登录成功");
                     L.File.Warn("登录成功");
                     return;
                 }
                 else
                 {
-                    Console.WriteLine("登录失败");
+                    Config.show("登录失败");
                     L.File.Warn("登录失败"+ result);
                     L.File.Info(result);
                     //Thread.Sleep(5000);
@@ -184,8 +185,7 @@ namespace Console_DotNetCore_CaoLiu.Tool
                     L.File.Debug("-----------------------------------------------------------------------------------------------");
                     L.File.Debug(" ");
                 }
-                Console.WriteLine();
-                Console.WriteLine(sw.Elapsed.TotalSeconds + "秒    --    " + cu + "次请求    **    " + Config.TaskRun.CurrentCount+"   —  正在运行任务数量"+ Config.currentRunTaskCount);
+                Config.show(sw.Elapsed.TotalSeconds + "秒    --    " + cu + "次请求    **    " + Config.TaskRun.CurrentCount+"   —  正在运行任务数量"+ Config.currentRunTaskCount);
                 L.File.Debug(sw.Elapsed.TotalSeconds + "秒    --    " + cu + "次请求    **    " + Config.TaskRun.CurrentCount + "   —  正在运行任务数量" + Config.currentRunTaskCount);
                 if (cu < 1)
                 {
@@ -214,13 +214,13 @@ namespace Console_DotNetCore_CaoLiu.Tool
             HtmlNode view = doc.GetElementbyId("main");
             if (view == null)
             {
-                Console.WriteLine("AnalysisPage() html 没找到 id=main:" + url);
+                Config.show("AnalysisPage() html 没找到 id=main:" + url);
                 return 0;
             }
             HtmlNode c_main = view.SelectSingleNode("//a[@class='w70']/input");
             if (c_main == null)
             {
-                Console.WriteLine("AnalysisPage() html 没找到 a[@class='w70':" + url);
+                Config.show("AnalysisPage() html 没找到 a[@class='w70':" + url);
                 return 0;
             }
             var min_max = c_main.Attributes["value"].Value.Split('/');
